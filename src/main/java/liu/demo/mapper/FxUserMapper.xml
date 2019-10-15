@@ -1,0 +1,448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="liu.demo.mapper.FxUserMapper">
+  <resultMap id="BaseResultMap" type="liu.demo.model.FxUser">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="FX_ALL_CODE" jdbcType="VARCHAR" property="fxAllCode" />
+    <result column="PARENT_ID" jdbcType="VARCHAR" property="parentId" />
+    <result column="FX_CODE" jdbcType="VARCHAR" property="fxCode" />
+    <result column="LOGIN_PHONE" jdbcType="VARCHAR" property="loginPhone" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="USER_CERT" jdbcType="VARCHAR" property="userCert" />
+    <result column="USER_BANK_NO" jdbcType="VARCHAR" property="userBankNo" />
+    <result column="PRIVINCE_CODE" jdbcType="VARCHAR" property="privinceCode" />
+    <result column="CITY_CODE" jdbcType="VARCHAR" property="cityCode" />
+    <result column="RIGION_CODE" jdbcType="VARCHAR" property="rigionCode" />
+    <result column="FX_LEVE" jdbcType="VARCHAR" property="fxLeve" />
+    <result column="FX_RANKE" jdbcType="VARCHAR" property="fxRanke" />
+    <result column="FX_POINTS" jdbcType="DECIMAL" property="fxPoints" />
+    <result column="FX_TYPE" jdbcType="VARCHAR" property="fxType" />
+    <result column="CREATER" jdbcType="VARCHAR" property="creater" />
+    <result column="IS_UNTIE" jdbcType="VARCHAR" property="isUntie" />
+    <result column="IS_DELETE" jdbcType="VARCHAR" property="isDelete" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, FX_ALL_CODE, PARENT_ID, FX_CODE, LOGIN_PHONE, USER_NAME, USER_CERT, USER_BANK_NO, 
+    PRIVINCE_CODE, CITY_CODE, RIGION_CODE, FX_LEVE, FX_RANKE, FX_POINTS, FX_TYPE, CREATER, 
+    IS_UNTIE, IS_DELETE, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByExample" parameterType="liu.demo.model.FxUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T_FX_USER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T_FX_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from T_FX_USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="liu.demo.model.FxUserExample">
+    delete from T_FX_USER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="liu.demo.model.FxUser">
+    insert into T_FX_USER (ID, FX_ALL_CODE, PARENT_ID, 
+      FX_CODE, LOGIN_PHONE, USER_NAME, 
+      USER_CERT, USER_BANK_NO, PRIVINCE_CODE, 
+      CITY_CODE, RIGION_CODE, FX_LEVE, 
+      FX_RANKE, FX_POINTS, FX_TYPE, 
+      CREATER, IS_UNTIE, IS_DELETE, 
+      CREATE_TIME, UPDATE_TIME)
+    values (#{id,jdbcType=VARCHAR}, #{fxAllCode,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, 
+      #{fxCode,jdbcType=VARCHAR}, #{loginPhone,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userCert,jdbcType=VARCHAR}, #{userBankNo,jdbcType=VARCHAR}, #{privinceCode,jdbcType=VARCHAR}, 
+      #{cityCode,jdbcType=VARCHAR}, #{rigionCode,jdbcType=VARCHAR}, #{fxLeve,jdbcType=VARCHAR}, 
+      #{fxRanke,jdbcType=VARCHAR}, #{fxPoints,jdbcType=DECIMAL}, #{fxType,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{isUntie,jdbcType=VARCHAR}, #{isDelete,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="liu.demo.model.FxUser">
+    insert into T_FX_USER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="fxAllCode != null">
+        FX_ALL_CODE,
+      </if>
+      <if test="parentId != null">
+        PARENT_ID,
+      </if>
+      <if test="fxCode != null">
+        FX_CODE,
+      </if>
+      <if test="loginPhone != null">
+        LOGIN_PHONE,
+      </if>
+      <if test="userName != null">
+        USER_NAME,
+      </if>
+      <if test="userCert != null">
+        USER_CERT,
+      </if>
+      <if test="userBankNo != null">
+        USER_BANK_NO,
+      </if>
+      <if test="privinceCode != null">
+        PRIVINCE_CODE,
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE,
+      </if>
+      <if test="rigionCode != null">
+        RIGION_CODE,
+      </if>
+      <if test="fxLeve != null">
+        FX_LEVE,
+      </if>
+      <if test="fxRanke != null">
+        FX_RANKE,
+      </if>
+      <if test="fxPoints != null">
+        FX_POINTS,
+      </if>
+      <if test="fxType != null">
+        FX_TYPE,
+      </if>
+      <if test="creater != null">
+        CREATER,
+      </if>
+      <if test="isUntie != null">
+        IS_UNTIE,
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="fxAllCode != null">
+        #{fxAllCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fxCode != null">
+        #{fxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPhone != null">
+        #{loginPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCert != null">
+        #{userCert,jdbcType=VARCHAR},
+      </if>
+      <if test="userBankNo != null">
+        #{userBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="privinceCode != null">
+        #{privinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rigionCode != null">
+        #{rigionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fxLeve != null">
+        #{fxLeve,jdbcType=VARCHAR},
+      </if>
+      <if test="fxRanke != null">
+        #{fxRanke,jdbcType=VARCHAR},
+      </if>
+      <if test="fxPoints != null">
+        #{fxPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="fxType != null">
+        #{fxType,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="isUntie != null">
+        #{isUntie,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="liu.demo.model.FxUserExample" resultType="java.lang.Long">
+    select count(*) from T_FX_USER
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T_FX_USER
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxAllCode != null">
+        FX_ALL_CODE = #{record.fxAllCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentId != null">
+        PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxCode != null">
+        FX_CODE = #{record.fxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginPhone != null">
+        LOGIN_PHONE = #{record.loginPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCert != null">
+        USER_CERT = #{record.userCert,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBankNo != null">
+        USER_BANK_NO = #{record.userBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.privinceCode != null">
+        PRIVINCE_CODE = #{record.privinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityCode != null">
+        CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rigionCode != null">
+        RIGION_CODE = #{record.rigionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxLeve != null">
+        FX_LEVE = #{record.fxLeve,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxRanke != null">
+        FX_RANKE = #{record.fxRanke,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fxPoints != null">
+        FX_POINTS = #{record.fxPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="record.fxType != null">
+        FX_TYPE = #{record.fxType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creater != null">
+        CREATER = #{record.creater,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUntie != null">
+        IS_UNTIE = #{record.isUntie,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isDelete != null">
+        IS_DELETE = #{record.isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null">
+        CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateTime != null">
+        UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T_FX_USER
+    set ID = #{record.id,jdbcType=VARCHAR},
+      FX_ALL_CODE = #{record.fxAllCode,jdbcType=VARCHAR},
+      PARENT_ID = #{record.parentId,jdbcType=VARCHAR},
+      FX_CODE = #{record.fxCode,jdbcType=VARCHAR},
+      LOGIN_PHONE = #{record.loginPhone,jdbcType=VARCHAR},
+      USER_NAME = #{record.userName,jdbcType=VARCHAR},
+      USER_CERT = #{record.userCert,jdbcType=VARCHAR},
+      USER_BANK_NO = #{record.userBankNo,jdbcType=VARCHAR},
+      PRIVINCE_CODE = #{record.privinceCode,jdbcType=VARCHAR},
+      CITY_CODE = #{record.cityCode,jdbcType=VARCHAR},
+      RIGION_CODE = #{record.rigionCode,jdbcType=VARCHAR},
+      FX_LEVE = #{record.fxLeve,jdbcType=VARCHAR},
+      FX_RANKE = #{record.fxRanke,jdbcType=VARCHAR},
+      FX_POINTS = #{record.fxPoints,jdbcType=DECIMAL},
+      FX_TYPE = #{record.fxType,jdbcType=VARCHAR},
+      CREATER = #{record.creater,jdbcType=VARCHAR},
+      IS_UNTIE = #{record.isUntie,jdbcType=VARCHAR},
+      IS_DELETE = #{record.isDelete,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{record.updateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="liu.demo.model.FxUser">
+    update T_FX_USER
+    <set>
+      <if test="fxAllCode != null">
+        FX_ALL_CODE = #{fxAllCode,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null">
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="fxCode != null">
+        FX_CODE = #{fxCode,jdbcType=VARCHAR},
+      </if>
+      <if test="loginPhone != null">
+        LOGIN_PHONE = #{loginPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userCert != null">
+        USER_CERT = #{userCert,jdbcType=VARCHAR},
+      </if>
+      <if test="userBankNo != null">
+        USER_BANK_NO = #{userBankNo,jdbcType=VARCHAR},
+      </if>
+      <if test="privinceCode != null">
+        PRIVINCE_CODE = #{privinceCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cityCode != null">
+        CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      </if>
+      <if test="rigionCode != null">
+        RIGION_CODE = #{rigionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="fxLeve != null">
+        FX_LEVE = #{fxLeve,jdbcType=VARCHAR},
+      </if>
+      <if test="fxRanke != null">
+        FX_RANKE = #{fxRanke,jdbcType=VARCHAR},
+      </if>
+      <if test="fxPoints != null">
+        FX_POINTS = #{fxPoints,jdbcType=DECIMAL},
+      </if>
+      <if test="fxType != null">
+        FX_TYPE = #{fxType,jdbcType=VARCHAR},
+      </if>
+      <if test="creater != null">
+        CREATER = #{creater,jdbcType=VARCHAR},
+      </if>
+      <if test="isUntie != null">
+        IS_UNTIE = #{isUntie,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        IS_DELETE = #{isDelete,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="liu.demo.model.FxUser">
+    update T_FX_USER
+    set FX_ALL_CODE = #{fxAllCode,jdbcType=VARCHAR},
+      PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      FX_CODE = #{fxCode,jdbcType=VARCHAR},
+      LOGIN_PHONE = #{loginPhone,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_CERT = #{userCert,jdbcType=VARCHAR},
+      USER_BANK_NO = #{userBankNo,jdbcType=VARCHAR},
+      PRIVINCE_CODE = #{privinceCode,jdbcType=VARCHAR},
+      CITY_CODE = #{cityCode,jdbcType=VARCHAR},
+      RIGION_CODE = #{rigionCode,jdbcType=VARCHAR},
+      FX_LEVE = #{fxLeve,jdbcType=VARCHAR},
+      FX_RANKE = #{fxRanke,jdbcType=VARCHAR},
+      FX_POINTS = #{fxPoints,jdbcType=DECIMAL},
+      FX_TYPE = #{fxType,jdbcType=VARCHAR},
+      CREATER = #{creater,jdbcType=VARCHAR},
+      IS_UNTIE = #{isUntie,jdbcType=VARCHAR},
+      IS_DELETE = #{isDelete,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
